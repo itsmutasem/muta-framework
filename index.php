@@ -1,5 +1,5 @@
 <?php
 
-require 'controller.php';
+require 'src/controllers/controller.php';
 $controller = new Controller();
 $controller->index();

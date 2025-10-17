@@ -4,7 +4,7 @@ class Controller
 {
     public function index()
     {
-        require 'model.php';
+        require 'src/models/model.php';
         $model = new Model();
         $products = $model->getData();
 
