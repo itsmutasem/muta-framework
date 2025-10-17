@@ -8,6 +8,6 @@ class Controller
         $model = new Model();
         $products = $model->getData();
 
-        require 'view.php';
+        require 'views/view.php';
     }
 }
