@@ -1,14 +1,22 @@
 <?php
 
-require 'src/controllers/products.php';
-$controller = new Controller();
-
 $action = $_GET['action'];
+$controller = $_GET['controller'];
+
+if ($controller === 'products') {
+    require 'src/controllers/products.php';
+    $controller_object = new Controller();
+} elseif ($controller === 'home') {
+    require 'src/controllers/home.php';
+    $controller_object = new Home();
+}
+
+
 if ($action === 'index') {
-    $controller->index();
+    $controller_object->index();
 } elseif ($action === 'show') {
-    $controller->show();
+    $controller_object->show();
 } else {
     // Default action
-    $controller->index();
+    $controller_object->index();
 }
