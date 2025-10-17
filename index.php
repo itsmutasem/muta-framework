@@ -1,5 +1,14 @@
 <?php
 
-require 'src/controllers/controller.php';
+require 'src/controllers/products.php';
 $controller = new Controller();
-$controller->index();
+
+$action = $_GET['action'];
+if ($action === 'index') {
+    $controller->index();
+} elseif ($action === 'show') {
+    $controller->show();
+} else {
+    // Default action
+    $controller->index();
+}
