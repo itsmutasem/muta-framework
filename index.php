@@ -11,6 +11,12 @@ $router->add("/products", ['controller' => 'Products', 'action' => 'index']);
 
 $params = $router->match($path);
 
+if ($params === false) {
+    http_response_code(404);
+    echo "404 | Not Found";
+    exit;
+}
+
 $action = $params['action'];
 $controller = $params['controller'];
 
