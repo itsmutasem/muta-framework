@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Model
+class Product
 {
     public function getData(): array
     {

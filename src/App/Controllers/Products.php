@@ -6,8 +6,7 @@ class Products
 {
     public function index()
     {
-        require 'src/Models/Product.php';
-        $model = new Model();
+        $model = new \App\Models\Product;
         $products = $model->getData();
 
         require 'views/products_index.php';
