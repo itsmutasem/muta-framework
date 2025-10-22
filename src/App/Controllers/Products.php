@@ -2,11 +2,13 @@
 
 namespace App\Controllers;
 
+use App\Models\Product;
+
 class Products
 {
     public function index()
     {
-        $model = new \App\Models\Product;
+        $model = new Product;
         $products = $model->getData();
 
         require 'views/products_index.php';
