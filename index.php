@@ -1,14 +1,18 @@
 <?php
 
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$segments = array_values(array_filter(explode('/', $path)));
 
-if ($segments[0] === 'muta') {
-    array_shift($segments);
-}
+require "src/router.php";
+$router = new Router();
 
-$action = $segments[1];
-$controller = $segments[0];
+$router->add("/", ['controller' => 'Home', 'action' => 'index']);
+$router->add("/home/index", ['controller' => 'Home', 'action' => 'index']);
+$router->add("/products", ['controller' => 'Products', 'action' => 'index']);
+
+$params = $router->match($path);
+
+$action = $params['action'];
+$controller = $params['controller'];
 
 require "src/controllers/$controller.php";
 $controller_object = new $controller;
