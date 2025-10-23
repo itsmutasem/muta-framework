@@ -23,7 +23,8 @@ class Router
 
             if (preg_match($pattern, $path, $matches)) {
                 $matches = array_filter($matches, "is_string", ARRAY_FILTER_USE_KEY);
-                return $matches;
+                $params = array_merge($matches, $route["params"]);
+                return $params;
             }
         }
         return false;
@@ -34,8 +35,9 @@ class Router
         $route_path = trim($route_path, "/");
         $segments = explode("/", $route_path);
         $segments = array_map(function (string $segment): string {
-            preg_match("#^\{([a-z][a-z0-9]*)\}$#", $segment, $matches);
-            $segment = "(?<" . $matches[1] . ">[a-z]+)";
+            if (preg_match("#^\{([a-z][a-z0-9]*)\}$#", $segment, $matches)) {
+                $segment = "(?<" . $matches[1] . ">[a-z]+)";
+            }
             return $segment;
         }, $segments);
         return "#^" . implode("/", $segments) . "$#";
