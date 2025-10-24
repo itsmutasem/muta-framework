@@ -18,4 +18,9 @@ class Products
     {
         require 'views/products_show.php';
     }
+
+    public function showPage(string $title, string $id, string $page)
+    {
+        echo $title . " - " . $id . " - " . $page;
+    }
 }
