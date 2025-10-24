@@ -25,11 +25,11 @@ class Dispatcher
         $controller = "App\Controllers\\" . ucwords($params['controller']);
 
         $controller_object = new $controller;
-        $this->getActionArguments($controller, $action);
+        $this->getActionArguments($controller, $action, $params);
         $controller_object->$action();
     }
 
-    public function getActionArguments(string $controller, string $action)
+    public function getActionArguments(string $controller, string $action, array $params)
     {
         $method = new ReflectionMethod($controller, $action);
         foreach ($method->getParameters() as $parameter) {
