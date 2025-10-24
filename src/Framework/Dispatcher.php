@@ -8,4 +8,21 @@ class Dispatcher
     {
 
     }
+
+    public function handle(string $path)
+    {
+        $params = $this->router->match($path);
+
+        if ($params === false) {
+            http_response_code(404);
+            echo "404 | Not Found";
+            exit;
+        }
+
+        $action = $params['action'];
+        $controller = "App\Controllers\\" . ucwords($params['controller']);
+
+        $controller_object = new $controller;
+        $controller_object->$action();
+    }
 }

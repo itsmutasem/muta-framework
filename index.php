@@ -14,18 +14,5 @@ $router->add("/home/index", ['controller' => 'home', 'action' => 'index']);
 $router->add("/products", ['controller' => 'Products', 'action' => 'index']);
 $router->add("/{controller}/{action}");
 
-$params = $router->match($path);
-
-if ($params === false) {
-    http_response_code(404);
-    echo "404 | Not Found";
-    exit;
-}
-
-$action = $params['action'];
-$controller = "App\Controllers\\" . ucwords($params['controller']);
-
-$controller_object = new $controller;
-$controller_object->$action();
-
 $dispatcher = new Framework\Dispatcher($router);
+$dispatcher->handle($path);
