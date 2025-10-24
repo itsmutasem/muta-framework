@@ -44,6 +44,6 @@ class Router
             }
             return $segment;
         }, $segments);
-        return "#^" . implode("/", $segments) . "$#";
+        return "#^" . implode("/", $segments) . "$#i";
     }
 }
