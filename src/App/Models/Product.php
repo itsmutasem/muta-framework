@@ -7,16 +7,17 @@ use PDO;
 
 class Product
 {
+    public function __construct(private Database $database)
+    {
+
+    }
+
     public function getData(): array
     {
-        $database = new Database();
-        $pdo = $database->getConnection();
+        $pdo = $this->database->getConnection();
 
-        $stmt = $pdo->prepare("SELECT * FROM products");
-        $stmt->execute();
+        $stmt = $pdo->query("SELECT * FROM products");
 
-        $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        return $products;
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
