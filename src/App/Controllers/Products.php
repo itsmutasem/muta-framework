@@ -13,13 +13,14 @@ class Products
         $products = $model->getData();
 
         $viewer = new Viewer();
-
+        echo $viewer->render("shared/header.php");
         echo $viewer->render("Products/index.php", ['products' => $products]);
     }
 
     public function show(string $id)
     {
         $viewer = new Viewer();
+        echo $viewer->render("shared/header.php");
         echo $viewer->render("Products/show.php", ['id' => $id]);
     }
 
