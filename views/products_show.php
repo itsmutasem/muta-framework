@@ -1,1 +1,0 @@
-Show an individual product's details.
