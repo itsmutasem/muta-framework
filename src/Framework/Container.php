@@ -1,11 +1,14 @@
 <?php
- namespace Framework;
 
- use ReflectionClass;
- use Closure;
- use ReflectionNamedType;
+declare(strict_types=1);
 
- class Container
+namespace Framework;
+
+use ReflectionClass;
+use Closure;
+use ReflectionNamedType;
+
+class Container
  {
      private array $registry = [];
 
@@ -42,7 +45,7 @@
                  exit("Unable to resolve constructor parameter '" . $parameter->getName() . "' of type '" . $type . "' in class '" . $class_name . "'."
                  );
              }
-             $dependencies[] = $this->get($type);
+             $dependencies[] = $this->get((string) $type);
          }
 
          return new $class_name(...$dependencies);
