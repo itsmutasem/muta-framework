@@ -17,6 +17,8 @@ $router->add("/products", ['controller' => 'Products', 'action' => 'index']);
 $router->add("/{controller}/{action}");
 
 $container = new Framework\Container;
+$database = new App\Database("localhost", "product_db", "root", "");
+$container->set(App\Database::class, $database);
 
 $dispatcher = new Framework\Dispatcher($router, $container);
 $dispatcher->handle($path);
