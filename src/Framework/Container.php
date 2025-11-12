@@ -35,7 +35,7 @@ class Container
              if ($type === null) {
                  throw new InvalidArgumentException("Constructor parameter '{$parameter->getName()}'
                  in the '{$class_name}' class
-                 has no type declaration.");
+                 has no type declaration on line {$parameter->getDeclaringClass()->getStartLine()}.");
              }
              if (! ($type instanceof ReflectionNamedType)) {
                  throw new InvalidArgumentException("Constructor parameter '{$parameter->getName()}' 
