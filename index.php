@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) {
+    throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+});
 set_exception_handler(function (Throwable $exception) {
     $show_errors = true;
     if ($show_errors) {
