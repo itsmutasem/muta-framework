@@ -3,6 +3,7 @@
 namespace Framework;
 
 use ReflectionMethod;
+use Framework\Exceptions\PageNotFoundException;
 
 class Dispatcher
 {
@@ -17,7 +18,7 @@ class Dispatcher
 
         if ($params === false) {
             http_response_code(404);
-            echo "404 | Not Found";
+            throw new PageNotFoundException("404 | Not Found for '$path'");
             exit;
         }
 
