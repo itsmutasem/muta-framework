@@ -2,14 +2,17 @@
 
 declare(strict_types=1);
 
-$show_errors = false;
-if ($show_errors) {
-    ini_set("display_errors", "1");
-} else {
-    ini_set("display_errors", "0");
-    ini_set("log_errors", "1");
-    require "views/500.php";
-}
+set_exception_handler(function (Throwable $exception) {
+    $show_errors = true;
+    if ($show_errors) {
+        ini_set("display_errors", "1");
+    } else {
+        ini_set("display_errors", "0");
+        ini_set("log_errors", "1");
+        require "views/500.php";
+    }
+    throw $exception;
+});
 
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
