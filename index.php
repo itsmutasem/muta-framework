@@ -8,16 +8,18 @@ set_error_handler(function (int $errno, string $errstr, string $errfile, int $er
 set_exception_handler(function (Throwable $exception) {
     if ($exception instanceof \Framework\Exceptions\PageNotFoundException) {
         http_response_code(404);
+        $template = "404";
     } else {
         http_response_code(500);
+        $template = "500";
     }
-    $show_errors = true;
+    $show_errors = false;
     if ($show_errors) {
         ini_set("display_errors", "1");
     } else {
         ini_set("display_errors", "0");
         ini_set("log_errors", "1");
-        require "views/500.php";
+        require "views/Errors/$template.php";
     }
     throw $exception;
 });

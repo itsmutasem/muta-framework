@@ -19,7 +19,6 @@ class Dispatcher
         if ($params === false) {
             http_response_code(404);
             throw new PageNotFoundException("404 | Not Found for '$path'");
-            exit;
         }
 
         $action = $this->getActionName($params);
