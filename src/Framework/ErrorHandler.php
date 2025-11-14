@@ -63,8 +63,7 @@ class ErrorHandler
             ];
             $template = "500";
         }
-        $show_errors = false;
-        if ($show_errors) {
+        if ($_ENV["SHOW_ERRORS"] === "true") {
             ini_set("display_errors", "1");
         } else {
             ini_set("display_errors", "0");
