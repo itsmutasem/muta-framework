@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) {
-    throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+spl_autoload_register(function ($class_name) {
+    require "src/" . str_replace("\\", "/", $class_name) . ".php";
 });
+
+set_error_handler("Framework\ErrorHandler::ErrorHandler");
 set_exception_handler(function (Throwable $exception) {
     if ($exception instanceof \Framework\Exceptions\PageNotFoundException) {
         http_response_code(404);
@@ -65,10 +67,8 @@ if ($path === false) {
     throw new UnexpectedValueException("Invalid URL format");
 }
 
-spl_autoload_register(function ($class_name) {
-    require "src/" . str_replace("\\", "/", $class_name) . ".php";
-});
-$router = new Framework\Router;
+
+$router = new Framework\Roouter;
 
 $router->add("/admin/{controller}/{action}", ['namespace' => "Admin"]);
 $router->add("/{title}/{id:\d+}/{page:\d+}", ['controller' => 'products', 'action' => 'showPage']);
