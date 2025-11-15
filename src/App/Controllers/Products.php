@@ -24,9 +24,10 @@ class Products
 
     public function show(string $id)
     {
+        $product = $this->model->find($id);
         $viewer = new Viewer();
         echo $this->viewer->render("shared/header.php", ['title' => 'Product']);
-        echo $this->viewer->render("Products/show.php", ['id' => $id]);
+        echo $this->viewer->render("Products/show.php", ['product' => $product]);
     }
 
     public function showPage(string $title, string $id, string $page)
