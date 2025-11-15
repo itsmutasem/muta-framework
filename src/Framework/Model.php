@@ -43,8 +43,10 @@ abstract class Model
 
     public function create(array $data): bool
     {
-        $sql = "INSERT INTO {$this->getTable()} (name, description)
-                VALUES (?, ?)";
+        $columns = implode(", ", array_keys($data));
+        $values = implode(", ", array_fill(0, count($data), "?"));
+        $sql = "INSERT INTO {$this->getTable()} ($columns)
+                VALUES ($values)";
         $conn = $this->database->getConnection();
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(1, $data['name'], PDO::PARAM_STR);
