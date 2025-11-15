@@ -51,7 +51,12 @@ class Products
             'name' => $_POST['name'],
             'description' => $_POST['description'],
         ];
-        var_dump($this->model->create($data));
+        if ($this->model->create($data)) {
+            echo "Product created successfully!";
+        } else {
+            echo $this->viewer->render("shared/header", ['title' => 'Create Product']);;
+            echo $this->viewer->render("Products/create", ['errors' => $this->model->getErrors()]);
+        }
 
     }
 }
