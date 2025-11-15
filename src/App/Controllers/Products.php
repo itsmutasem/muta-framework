@@ -19,8 +19,8 @@ class Products
     {
         $products = $this->model->all();
 
-        echo $this->viewer->render("shared/header.php", ['title' => 'Products']);
-        echo $this->viewer->render("Products/index.php", ['products' => $products]);
+        echo $this->viewer->render("shared/header", ['title' => 'Products']);
+        echo $this->viewer->render("Products/index", ['products' => $products]);
     }
 
     public function show(string $id)
@@ -30,12 +30,18 @@ class Products
             throw new PageNotFoundException("Product not found");
         }
         $viewer = new Viewer();
-        echo $this->viewer->render("shared/header.php", ['title' => 'Product']);
-        echo $this->viewer->render("Products/show.php", ['product' => $product]);
+        echo $this->viewer->render("shared/header", ['title' => 'Product']);
+        echo $this->viewer->render("Products/show", ['product' => $product]);
     }
 
     public function showPage(string $title, string $id, string $page)
     {
         echo $title . " - " . $id . " - " . $page;
+    }
+
+    public function create()
+    {
+        echo $this->viewer->render("shared/header", ['title' => 'Create Product']);;
+        echo $this->viewer->render("Products/create");
     }
 }

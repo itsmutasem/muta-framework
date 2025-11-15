@@ -1,5 +1,5 @@
-
 <h1>Product List</h1>
+<a href="/products/create">Create Product</a>
 <?php foreach ($products as $product) : ?>
     <div>
         <h2>
