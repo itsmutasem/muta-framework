@@ -44,4 +44,14 @@ class Products
         echo $this->viewer->render("shared/header", ['title' => 'Create Product']);;
         echo $this->viewer->render("Products/create");
     }
+
+    public function store()
+    {
+        $data = [
+            'name' => $_POST['name'],
+            'description' => $_POST['description'],
+        ];
+        var_dump($this->model->create($data));
+
+    }
 }

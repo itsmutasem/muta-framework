@@ -1,5 +1,5 @@
 <h1>New Product</h1>
-<form action="" method="post">
+<form action="/products/store" method="post">
     <label for="name">Name</label>
     <input type="text" name="name" id="name">
     <label for="description">Description</label>
