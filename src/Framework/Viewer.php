@@ -8,7 +8,7 @@ class Viewer
     {
         extract($data, EXTR_SKIP);
         ob_start();
-        require dirname(__DIR__, 2) . "/views/$template";
+        require dirname(__DIR__, 2) . "/views/$template.php";
         return ob_get_clean();
     }
 }
