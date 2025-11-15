@@ -52,7 +52,8 @@ class Products
             'description' => $_POST['description'],
         ];
         if ($this->model->create($data)) {
-            echo "Product created successfully!, ID: ", $this->model->getInsertID();
+            header("Location: /products/{$this->model->getInsertID()}/show");
+            exit();
         } else {
             echo $this->viewer->render("shared/header", ['title' => 'Create Product']);;
             echo $this->viewer->render("Products/create", ['errors' => $this->model->getErrors()]);
