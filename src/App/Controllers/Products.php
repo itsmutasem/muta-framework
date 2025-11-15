@@ -52,7 +52,7 @@ class Products
             'description' => $_POST['description'],
         ];
         if ($this->model->create($data)) {
-            echo "Product created successfully!";
+            echo "Product created successfully!, ID: ", $this->model->getInsertID();
         } else {
             echo $this->viewer->render("shared/header", ['title' => 'Create Product']);;
             echo $this->viewer->render("Products/create", ['errors' => $this->model->getErrors()]);

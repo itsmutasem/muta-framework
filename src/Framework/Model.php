@@ -52,6 +52,12 @@ abstract class Model
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getInsertID(): string
+    {
+        $conn = $this->database->getConnection();
+        return $conn->lastInsertId();
+    }
+
     public function create(array $data): bool
     {
         $this->validate($data);
