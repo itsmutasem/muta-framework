@@ -23,13 +23,19 @@ class Products
         echo $this->viewer->render("Products/index", ['products' => $products]);
     }
 
-    public function show(string $id)
+    public function getProduct(string $id): array
     {
         $product = $this->model->find($id);
-        if ($product === false) {
+        if ($product === false){
             throw new PageNotFoundException("Product not found");
         }
-        $viewer = new Viewer();
+        return $product;
+    }
+
+
+    public function show(string $id)
+    {
+        $product = $this->getProduct($id);
         echo $this->viewer->render("shared/header", ['title' => 'Product']);
         echo $this->viewer->render("Products/show", ['product' => $product]);
     }
@@ -64,22 +70,14 @@ class Products
 
     public function edit(string $id)
     {
-        $product = $this->model->find($id);
-        if ($product === false) {
-            throw new PageNotFoundException("Product not found");
-        }
-        $viewer = new Viewer();
+        $product = $this->getProduct($id);
         echo $this->viewer->render("shared/header", ['title' => 'Edit Product']);
         echo $this->viewer->render("Products/edit", ['product' => $product]);
     }
 
     public function update(string $id)
     {
-        $product = $this->model->find($id);
-        if ($product === false) {
-            throw new PageNotFoundException("Product not found");
-        }
-
+        $product = $this->getProduct($id);
         $product['name'] = $_POST['name'];
         $product['description'] = $_POST['description'];
         if ($this->model->update($id, $product)) {
