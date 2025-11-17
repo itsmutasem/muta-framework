@@ -60,4 +60,15 @@ class Products
         }
 
     }
+
+    public function edit(string $id)
+    {
+        $product = $this->model->find($id);
+        if ($product === false) {
+            throw new PageNotFoundException("Product not found");
+        }
+        $viewer = new Viewer();
+        echo $this->viewer->render("shared/header", ['title' => 'Edit Product']);
+        echo $this->viewer->render("Products/edit", ['product' => $product]);
+    }
 }
