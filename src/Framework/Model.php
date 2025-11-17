@@ -88,5 +88,27 @@ abstract class Model
         $this->validate($data);
         if (!empty($this->errors)){
         }
+        $sql = "UPDATE {$this->getTable()}";
+        unset($data['id']);
+        $assignments = array_keys($data);
+        array_walk($assignments, function (&$value) {
+            $value = "$value = ?";
+        });
+        $sql .= " SET " . implode(", ", $assignments);
+        $sql .= " WHERE id = ?";
+        $conn = $this->database->getConnection();
+        $stmt = $conn->prepare($sql);
+        $i = 1;
+        foreach ($data as $value){
+            $type = match (gettype($value)){
+                "integer" => PDO::PARAM_INT,
+                "boolean" => PDO::PARAM_BOOL,
+                "NULL" => PDO::PARAM_NULL,
+                default => PDO::PARAM_STR
+            };
+            $stmt->bindValue($i++, $value, $type);
+        }
+        $stmt->bindValue($i, $id, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 }

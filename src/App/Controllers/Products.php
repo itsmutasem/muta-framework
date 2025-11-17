@@ -90,6 +90,5 @@ class Products
             echo $this->viewer->render("Products/edit", ['errors' => $this->model->getErrors(),
                 'product' => $product]);
         }
-
     }
 }
