@@ -93,6 +93,11 @@ class Products
     public function delete(string $id)
     {
         $product = $this->getProduct($id);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $this->model->delete($id);
+            header("Location: /products");
+            exit();
+        }
         echo $this->viewer->render("shared/header", ['title' => 'Delete Product']);
         echo $this->viewer->render("Products/delete", ['product' => $product]);;
     }
