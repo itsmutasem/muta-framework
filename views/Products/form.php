@@ -8,4 +8,4 @@ if(isset($errors['name'])) : ?>
 
 <label for="description">Description</label>
 <textarea name="description" id="description" cols="30" rows="10"><?= $product['description'] ?? '' ?></textarea>
-<button type="submit">Create</button>
+<button type="submit">Save</button>
