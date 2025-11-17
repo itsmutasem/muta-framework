@@ -82,4 +82,11 @@ abstract class Model
         }
         return $stmt->execute();
     }
+
+    public function update(string $id, array $data): bool
+    {
+        $this->validate($data);
+        if (!empty($this->errors)){
+        }
+    }
 }

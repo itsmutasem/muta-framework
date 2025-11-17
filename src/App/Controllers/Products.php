@@ -71,4 +71,25 @@ class Products
         echo $this->viewer->render("shared/header", ['title' => 'Edit Product']);
         echo $this->viewer->render("Products/edit", ['product' => $product]);
     }
+
+    public function update(string $id)
+    {
+        $product = $this->model->find($id);
+        if ($product === false) {
+            throw new PageNotFoundException("Product not found");
+        }
+        $data = [
+            'name' => $_POST['name'],
+            'description' => $_POST['description'],
+        ];
+        if ($this->model->update($id, $data)) {
+            header("Location: /products/{$id}/show");
+            exit();
+        } else {
+            echo $this->viewer->render("shared/header", ['title' => 'Edit Product']);;
+            echo $this->viewer->render("Products/edit", ['errors' => $this->model->getErrors(),
+                'product' => $product]);
+        }
+
+    }
 }
