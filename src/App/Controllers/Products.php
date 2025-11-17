@@ -89,4 +89,11 @@ class Products
                 'product' => $product]);
         }
     }
+
+    public function delete(string $id)
+    {
+        $product = $this->getProduct($id);
+        echo $this->viewer->render("shared/header", ['title' => 'Delete Product']);
+        echo $this->viewer->render("Products/delete", ['product' => $product]);;
+    }
 }
