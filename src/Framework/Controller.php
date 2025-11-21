@@ -4,7 +4,12 @@ declare(strict_types=1);
 
 namespace Framework;
 
-class Controller
+abstract class Controller
 {
+    protected Request $request;
 
+    public function setRequest(Request $request): void
+    {
+        $this->request = $request;
+    }
 }
