@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Controllers;
+use Framework\Controller;
 use Framework\Viewer;
 
-class Home
+class Home extends Controller
 {
     public function index()
     {
