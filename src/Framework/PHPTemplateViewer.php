@@ -2,7 +2,7 @@
 
 namespace Framework;
 
-class Viewer
+class PHPTemplateViewer
 {
     public function render(string $template, array $data = []): string
     {

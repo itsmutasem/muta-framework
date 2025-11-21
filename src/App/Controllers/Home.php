@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 use Framework\Controller;
-use Framework\Viewer;
+use Framework\PHPTemplateViewer;
 
 class Home extends Controller
 {
