@@ -1,5 +1,5 @@
 <h1>Delete Product</h1>
-<form action="/products/<?= $product['id'] ?>/delete" method="post">
+<form action="/products/<?= $product['id'] ?>/destroy" method="post">
     <p>Delete this product?</p>
     <button>Yes</button>
 </form>
