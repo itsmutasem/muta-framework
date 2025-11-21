@@ -18,9 +18,7 @@ class Products extends Controller
     public function index()
     {
         $products = $this->model->all();
-
-        echo $this->viewer->render("shared/header", ['title' => 'Products']);
-        echo $this->viewer->render("Products/index", ['products' => $products]);
+        echo $this->viewer->render("Products/index.mvc", ['products' => $products, 'title' => 'Products']);
     }
 
     public function getProduct(string $id): array
