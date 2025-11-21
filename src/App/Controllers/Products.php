@@ -7,7 +7,6 @@ namespace App\Controllers;
 use App\Models\Product;
 use Framework\Controller;
 use Framework\Exceptions\PageNotFoundException;
-use Framework\PHPTemplateViewer;
 
 class Products extends Controller
 {
