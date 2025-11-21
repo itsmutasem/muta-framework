@@ -12,9 +12,9 @@ class Dispatcher
 
     }
 
-    public function handle(string $path)
+    public function handle(string $path, string $method)
     {
-        $params = $this->router->match($path);
+        $params = $this->router->match($path, $method);
 
         if ($params === false) {
             http_response_code(404);

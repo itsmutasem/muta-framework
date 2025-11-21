@@ -10,7 +10,7 @@ $router->add("{controller}/{id:\d+}/show", ['action' => 'show']);
 $router->add("{controller}/{id:\d+}/edit", ['action' => 'edit']);
 $router->add("{controller}/{id:\d+}/update", ['action' => 'update']);
 $router->add("{controller}/{id:\d+}/delete", ['action' => 'delete']);
-$router->add("{controller}/{id:\d+}/destroy", ['action' => 'destroy']);
+$router->add("{controller}/{id:\d+}/destroy", ['action' => 'destroy', 'method' => 'post']);
 
 $router->add("/", ['controller' => 'Home', 'action' => 'index']);
 $router->add("/home/index", ['controller' => 'home', 'action' => 'index']);
