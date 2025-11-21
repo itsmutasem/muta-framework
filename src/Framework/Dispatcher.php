@@ -12,7 +12,7 @@ class Dispatcher
 
     }
 
-    public function handle(string $path, string $method)
+    public function handle(Request $request)
     {
         $params = $this->router->match($path, $method);
 
