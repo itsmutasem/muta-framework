@@ -14,12 +14,6 @@ $dotenv->load(ROOT_PATH . "/.env");
 set_error_handler("Framework\ErrorHandler::handleError");
 set_exception_handler("Framework\ErrorHandler::handleException");;
 
-$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
-if ($path === false) {
-    throw new UnexpectedValueException("Invalid URL format");
-}
-
 $router = require ROOT_PATH . "/config/routes.php";
 
 $container = require ROOT_PATH . "/config/services.php";
