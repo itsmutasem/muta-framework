@@ -1,4 +1,4 @@
-<< extends "base.mvc.php" >>
+<< extends "base.mvc" >>
 << block title >>Products<< endblock >>
 << block body >>
 <h1>Product List</h1>
