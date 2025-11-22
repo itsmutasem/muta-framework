@@ -9,9 +9,9 @@ class MVCTemplateViewer implements TemplateViewerInterface
     public function render(string $template, array $data = []): string
     {
         $views_dir = dirname(__DIR__, 2) . "/views/";
-        $code = file_get_contents($views_dir . $template . ".php");
+        $code = file_get_contents($views_dir . $template . ".mvc.php");
         if (preg_match('#^<< extends "(?<template>.*)" >>#', $code, $matches) === 1) {
-            $base = file_get_contents($views_dir . $matches["template"] . ".php");
+            $base = file_get_contents($views_dir . $matches["template"] . ".mvc.php");
             $blocks = $this->getBlock($code);
             $code = $this->replaceYields($base, $blocks);
         }
