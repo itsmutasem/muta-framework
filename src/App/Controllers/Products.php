@@ -44,7 +44,6 @@ class Products extends Controller
 
     public function create()
     {
-        echo $this->viewer->render("shared/header", ['title' => 'Create Product']);;
         echo $this->viewer->render("Products/create");
     }
 
@@ -58,7 +57,6 @@ class Products extends Controller
             header("Location: /products/{$this->model->getInsertID()}/show");
             exit();
         } else {
-            echo $this->viewer->render("shared/header", ['title' => 'Create Product']);;
             echo $this->viewer->render("Products/create", ['errors' => $this->model->getErrors(),
                 'product' => $data]);
         }
