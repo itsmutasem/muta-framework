@@ -25,7 +25,7 @@ class MVCTemplateViewer implements TemplateViewerInterface
 
     private function replaceVariables(string $code): string
     {
-        return preg_replace("#{{\s*(\S+)\s*}}#", "<?= htmlspecialchars(\$$1) ?>", $code);
+        return preg_replace("#{{\s*(\S+)\s*}}#", "<?= htmlspecialchars(\$$1 ?? '') ?>", $code);
     }
 
     private function replacePHP(string $code): string
