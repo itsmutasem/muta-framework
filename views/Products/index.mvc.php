@@ -1,4 +1,4 @@
-<< extends "base.mvc" >>
+<< extends "base" >>
 << block title >>Products<< endblock >>
 << block body >>
 <h1>Product List</h1>

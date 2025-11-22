@@ -18,7 +18,7 @@ class Products extends Controller
     public function index()
     {
         $products = $this->model->all();
-        echo $this->viewer->render("Products/index.mvc", ['products' => $products, 'title' => 'Products']);
+        echo $this->viewer->render("Products/index", ['products' => $products]);
     }
 
     public function getProduct(string $id): array
@@ -34,7 +34,6 @@ class Products extends Controller
     public function show(string $id)
     {
         $product = $this->getProduct($id);
-        echo $this->viewer->render("shared/header", ['title' => 'Product']);
         echo $this->viewer->render("Products/show", ['product' => $product]);
     }
 
