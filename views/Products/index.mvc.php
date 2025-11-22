@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
-    <title>{{ title }}</title>
-</head>
-<body>
+<< extends "base.mvc.php" >>
+<< block title >>Products<< endblock >>
+<< block body >>
 <h1>Product List</h1>
 <a href="/products/create">Create Product</a>
 << foreach ($products as $product): >>
@@ -18,5 +12,4 @@
         </h2>
     </div>
 << endforeach; >>
-</body>
-</html>
+<< endblock >>
