@@ -15,6 +15,7 @@ class MVCTemplateViewer implements TemplateViewerInterface
             $blocks = $this->getBlock($code);
             $code = $this->replaceYields($base, $blocks);
         }
+        $code = $this->loadIncludes($views_dir, $code);
         $code = $this->replaceVariables($code);
         $code = $this->replacePHP($code);
         extract($data, EXTR_SKIP);
@@ -50,6 +51,17 @@ class MVCTemplateViewer implements TemplateViewerInterface
             $name = $match['name'];
             $block = $blocks[$name];
             $code = preg_replace("#<< yield $name >>#", $block, $code);
+        }
+        return $code;
+    }
+
+    private function loadIncludes(string $dir, string $code): string
+    {
+        preg_match_all('#<< include "(?<template>.*?)" >>#', $code, $matches, PREG_SET_ORDER);
+        foreach ($matches as $match) {
+            $template = $match['template'];
+            $content = file_get_contents($dir . $template . ".mvc.php");
+            $code = preg_replace("#<< include \"$template\" >>#", $content, $code);
         }
         return $code;
     }
