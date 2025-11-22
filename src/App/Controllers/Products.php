@@ -66,7 +66,6 @@ class Products extends Controller
     public function edit(string $id)
     {
         $product = $this->getProduct($id);
-        echo $this->viewer->render("shared/header", ['title' => 'Edit Product']);
         echo $this->viewer->render("Products/edit", ['product' => $product]);
     }
 
@@ -79,7 +78,6 @@ class Products extends Controller
             header("Location: /products/{$id}/show");
             exit();
         } else {
-            echo $this->viewer->render("shared/header", ['title' => 'Edit Product']);;
             echo $this->viewer->render("Products/edit", ['errors' => $this->model->getErrors(),
                 'product' => $product]);
         }
@@ -88,7 +86,6 @@ class Products extends Controller
     public function delete(string $id)
     {
         $product = $this->getProduct($id);
-        echo $this->viewer->render("shared/header", ['title' => 'Delete Product']);
         echo $this->viewer->render("Products/delete", ['product' => $product]);;
     }
 
