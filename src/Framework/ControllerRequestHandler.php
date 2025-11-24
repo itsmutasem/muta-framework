@@ -10,6 +10,7 @@ class ControllerRequestHandler implements RequestHandlerInterface
 
     public function handle(Request $request): Response
     {
+        $this->controller->setRequest($request);
         return ($this->controller)->{$this->action}(...$this->args);
     }
 }
