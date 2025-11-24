@@ -31,4 +31,10 @@ abstract class Controller
         $this->response->setBody($this->viewer->render($template, $data));
         return $this->response;
     }
+
+    protected function redirect(string $url): Response
+    {
+        $this->response->redirect($url);
+        return $this->response;
+    }
 }
