@@ -32,10 +32,10 @@ class Products extends Controller
     }
 
 
-    public function show(string $id)
+    public function show(string $id): Response
     {
         $product = $this->getProduct($id);
-        echo $this->viewer->render("Products/show", ['product' => $product]);
+        return $this->view("Products/show", ['product' => $product]);
     }
 
     public function showPage(string $title, string $id, string $page)
@@ -43,12 +43,12 @@ class Products extends Controller
         echo $title . " - " . $id . " - " . $page;
     }
 
-    public function create()
+    public function create(): Response
     {
-        echo $this->viewer->render("Products/create");
+        return $this->view("Products/create");
     }
 
-    public function store()
+    public function store(): Response
     {
         $data = [
             'name' => $this->request->post['name'],
@@ -58,19 +58,19 @@ class Products extends Controller
             header("Location: /products/{$this->model->getInsertID()}/show");
             exit();
         } else {
-            echo $this->viewer->render("Products/create", ['errors' => $this->model->getErrors(),
+            return $this->view("Products/create", ['errors' => $this->model->getErrors(),
                 'product' => $data]);
         }
 
     }
 
-    public function edit(string $id)
+    public function edit(string $id): Response
     {
         $product = $this->getProduct($id);
-        echo $this->viewer->render("Products/edit", ['product' => $product]);
+        return $this->view("Products/edit", ['product' => $product]);
     }
 
-    public function update(string $id)
+    public function update(string $id): Response
     {
         $product = $this->getProduct($id);
         $product['name'] = $this->request->post['name'];
@@ -79,15 +79,15 @@ class Products extends Controller
             header("Location: /products/{$id}/show");
             exit();
         } else {
-            echo $this->viewer->render("Products/edit", ['errors' => $this->model->getErrors(),
+            return $this->view("Products/edit", ['errors' => $this->model->getErrors(),
                 'product' => $product]);
         }
     }
 
-    public function delete(string $id)
+    public function delete(string $id): Response
     {
         $product = $this->getProduct($id);
-        echo $this->viewer->render("Products/delete", ['product' => $product]);;
+        return $this->view("Products/delete", ['product' => $product]);
     }
 
     public function destroy(string $id)
