@@ -19,8 +19,7 @@ class Products extends Controller
     public function index(): Response
     {
         $products = $this->model->all();
-        $this->response->setBody($this->viewer->render("Products/index", ['products' => $products]));
-        return $this->response;
+        return $this->view("Products/index", ['products' => $products]);
     }
 
     public function getProduct(string $id): array
