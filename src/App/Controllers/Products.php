@@ -55,8 +55,7 @@ class Products extends Controller
             'description' => $this->request->post['description'],
         ];
         if ($this->model->create($data)) {
-            header("Location: /products/{$this->model->getInsertID()}/show");
-            exit();
+            return $this->redirect("/products/{$this->model->getInsertID()}/show");
         } else {
             return $this->view("Products/create", ['errors' => $this->model->getErrors(),
                 'product' => $data]);
@@ -76,8 +75,7 @@ class Products extends Controller
         $product['name'] = $this->request->post['name'];
         $product['description'] = $this->request->post['description'];
         if ($this->model->update($id, $product)) {
-            header("Location: /products/{$id}/show");
-            exit();
+            return $this->redirect("/products/{$id}/show");
         } else {
             return $this->view("Products/edit", ['errors' => $this->model->getErrors(),
                 'product' => $product]);
@@ -94,7 +92,6 @@ class Products extends Controller
     {
         $product = $this->getProduct($id);
             $this->model->delete($id);
-            header("Location: /products");
-            exit();
+            return $this->redirect("/products");
     }
 }
