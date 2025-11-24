@@ -30,7 +30,8 @@ class Dispatcher
         $controller_object->setViewer($this->container->get(TemplateViewerInterface::class));
         $controller_object->setResponse($this->container->get(Response::class));
         $args = $this->getActionArguments($controller, $action, $params);
-        return $controller_object->$action(...$args);
+        $controller_handler = new ControllerRequestHandler($controller_object, $action, $args);
+        return $controller_handler->handle($request);
     }
 
     public function getActionArguments(string $controller, string $action, array $params): array
