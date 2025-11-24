@@ -8,7 +8,7 @@ use UnexpectedValueException;
 
 class Dispatcher
 {
-    public function __construct(private Router $router, private Container $container)
+    public function __construct(private Router $router, private Container $container, private array $middleware_classes)
     {
 
     }
@@ -30,8 +30,9 @@ class Dispatcher
         $controller_object->setResponse($this->container->get(Response::class));
         $args = $this->getActionArguments($controller, $action, $params);
         $controller_handler = new ControllerRequestHandler($controller_object, $action, $args);
-        $middleware = $this->container->get(\App\Middleware\ChangeResponseExample::class);
-        $middleware2 = $this->container->get(\App\Middleware\ChangeResponseExample::class);
+        $middleware = $this->getMiddleware($params);
+        print_r($middleware);
+        exit();
         $middleware_handler = new MiddlewareRequestHandler([$middleware2, $middleware, clone $middleware, clone $middleware], $controller_handler);
         return $middleware_handler->handle($request);
     }
@@ -72,5 +73,14 @@ class Dispatcher
             throw new UnexpectedValueException("Invalid URL format: $uri");
         }
         return $path;
+    }
+
+    private function getMiddleware(array $params): array
+    {
+        if (!array_key_exists("middleware", $params)) {
+            return [];
+        }
+        $middleware = explode("|", $params['middleware']);
+        return $middleware;
     }
 }
