@@ -6,10 +6,11 @@ namespace App\Middleware;
 
 use Framework\Request;
 use Framework\Response;
+use Framework\RequestHandlerInterface;
 
 class ChangeResponseExample
 {
-    public function process(Request $request, $next): Response
+    public function process(Request $request, RequestHandlerInterface $next): Response
     {
         $response = $next->hadle($request);
         $response->setBody($response->getBody() . " - Middleware");
