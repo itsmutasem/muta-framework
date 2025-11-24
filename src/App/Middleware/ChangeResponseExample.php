@@ -12,7 +12,7 @@ class ChangeResponseExample
 {
     public function process(Request $request, RequestHandlerInterface $next): Response
     {
-        $response = $next->hadle($request);
+        $response = $next->handle($request);
         $response->setBody($response->getBody() . " - Middleware");
         return $response;
     }
