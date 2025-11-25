@@ -26,4 +26,12 @@ class Sanitizer
         $data = trim($data);
         return $data;
     }
+
+    public static function cleanArray(array $data): array
+    {
+        foreach ($data as $key => $value) {
+            $data[$key] = self::clean($value);
+        }
+        return $data;
+    }
 }
