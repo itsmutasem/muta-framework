@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+session_start();
+
 define("ROOT_PATH", dirname(__DIR__));
 
 spl_autoload_register(function ($class_name) {
