@@ -21,5 +21,6 @@ class Sanitizer
 
         $data = preg_replace('/[\x00-\x1F\x7f]/u', '', $data);
         $data = preg_replace('#<(secript|style)[^>]*>.*?</\1>#is', '', $data);
+        $data = strip_tags($data);
     }
 }
