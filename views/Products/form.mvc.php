@@ -1,5 +1,6 @@
 <label for="name">Name</label>
 <input type="text" name="name" id="name" value="{{ product['name'] }}">
+<input type="hidden" name="csrf_token" value="{{ csrf_token }}">
 
 << if(isset($errors['name'])) : >>
     <p>{{ errors['name'] }}</p>
