@@ -13,4 +13,12 @@ class CsrfToken
         }
         return $_SESSION['csrf_token'];
     }
+
+    public function verify(?string $token): bool
+    {
+        if (empty($token) || empty($_SESSION['csrf_token'])) {
+            return false;
+        }
+        return hash_equals($token, $_SESSION['csrf_token']);
+    }
 }
