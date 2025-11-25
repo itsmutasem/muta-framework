@@ -4,8 +4,14 @@ declare(strict_types=1);
 
 namespace Framework;
 
+use Framework\Security\CsrfToken;
+
 class MVCTemplateViewer implements TemplateViewerInterface
 {
+    public function __construct(private CsrfToken $csrfToken)
+    {
+    }
+
     public function render(string $template, array $data = []): string
     {
         $views_dir = dirname(__DIR__, 2) . "/views/";
@@ -18,6 +24,7 @@ class MVCTemplateViewer implements TemplateViewerInterface
         $code = $this->loadIncludes($views_dir, $code);
         $code = $this->replaceVariables($code);
         $code = $this->replacePHP($code);
+        $data['csrf_token'] = $this->csrfToken->generate();
         extract($data, EXTR_SKIP);
         ob_start();
         eval("?>$code");
