@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Framework;
 
+use Framework\Security\Sanitizer;
+
 class Request
 {
     public function __construct(public string $uri,
@@ -19,6 +21,10 @@ class Request
 
     public static function createFromGlobals()
     {
+        $cleanGet = Sanitizer::clean($_GET);
+        $cleanPost = Sanitizer::clean($_POST);
+        $cleanCookie = Sanitizer::clean($_COOKIE);
+
         return new static(
             $_SERVER['REQUEST_URI'],
             $_SERVER['REQUEST_METHOD'],

@@ -27,11 +27,11 @@ class Sanitizer
         return $data;
     }
 
-    public static function cleanArray(array $data): array
+    public static function cleanArray(array $array): array
     {
-        foreach ($data as $key => $value) {
-            $data[$key] = self::clean($value);
+        foreach ($array as $key => $value) {
+            $array[$key] = self::clean($value);
         }
-        return $data;
+        return $array;
     }
 }
