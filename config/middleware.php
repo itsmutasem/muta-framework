@@ -1,5 +1,7 @@
 <?php
 
+use Framework\Security\CsrfGuard;
+
 return [
-    \Framework\Security\CsrfToken::class
+    'csrf' => CsrfGuard::class,
 ];
