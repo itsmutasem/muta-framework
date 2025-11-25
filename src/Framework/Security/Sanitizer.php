@@ -22,7 +22,7 @@ class Sanitizer
         $data = preg_replace('/[\x00-\x1F\x7f]/u', '', $data);
         $data = preg_replace('#<(secript|style)[^>]*>.*?</\1>#is', '', $data);
         $data = strip_tags($data);
-        $data = htmlspecialchars($data, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+        $data = htmlspecialchars($data, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8');
         $data = trim($data);
         return $data;
     }

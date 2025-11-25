@@ -21,17 +21,13 @@ class Request
 
     public static function createFromGlobals()
     {
-        $cleanGet = Sanitizer::clean($_GET);
-        $cleanPost = Sanitizer::clean($_POST);
-        $cleanCookie = Sanitizer::clean($_COOKIE);
-
         return new static(
             $_SERVER['REQUEST_URI'],
             $_SERVER['REQUEST_METHOD'],
-            $_GET,
-            $_POST,
-            $_FILES,
-            $_COOKIE,
+            Sanitizer::clean($_GET),
+            Sanitizer::clean($_POST),
+            Sanitizer::clean($_FILES),
+            Sanitizer::clean($_COOKIE),
             $_SERVER
         );
     }
