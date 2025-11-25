@@ -18,5 +18,7 @@ class Sanitizer
         if (!is_string($data)) {
             return $data;
         }
+
+        $data = preg_replace('/[\x00-\x1F\x7f]/u', '', $data);
     }
 }
