@@ -14,5 +14,9 @@ class Sanitizer
             }
             return $data;
         }
+
+        if (!is_string($data)) {
+            return $data;
+        }
     }
 }
