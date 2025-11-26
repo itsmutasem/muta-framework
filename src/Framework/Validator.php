@@ -113,8 +113,23 @@ class Validator
             $this->errors[$field][] = "The {$field} field may not be greater than {$max} characters.";
             return false;
         }
-        if (is_numeric($value) && is_null($value) && $value > $max) {
+        if (is_numeric($value) || is_int($value) && $value > $max) {
             $this->errors[$field][] = "The {$field} field may not be greater than {$max}.";
+            return false;
+        }
+        return true;
+    }
+
+    protected function validateMin($field, $value, $param): bool
+    {
+        if ($value === null) return true;
+        $min = (int) $param;
+        if (is_string($value) && mb_strlen($value) < $min) {
+            $this->errors[$field][] = "The {$field} field must be at least {$min} characters.";
+            return false;
+        }
+        if (is_numeric($value) || is_int($value) && $value < $min) {
+            $this->errors[$field][] = "The {$field} field must be at least {$min}.";
             return false;
         }
         return true;
