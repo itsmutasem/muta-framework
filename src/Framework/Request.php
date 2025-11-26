@@ -31,4 +31,9 @@ class Request
             $_SERVER
         );
     }
+
+    public function validate(array $rules)
+    {
+        return new Validator($this->post, $rules);
+    }
 }
