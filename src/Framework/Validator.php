@@ -86,4 +86,13 @@ class Validator
         }
         return true;
     }
+
+    protected function validateNumeric($field, $value, $param): bool
+    {
+        if ($value !== null && !is_numeric($value)) {
+            $this->errors[$field][] = "The {$field} field must be numeric.";
+            return false;
+        }
+        return true;
+    }
 }
