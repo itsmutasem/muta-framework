@@ -152,4 +152,15 @@ class Validator
         }
         return true;
     }
+
+    protected function validateIn($field, $value, $param): bool
+    {
+        if ($value === null) return true;
+        $options = explode(",", $param);
+        if (!in_array($value, $options, true)) {
+            $this->errors[$field][] = "The {$field} field must be one of: " . implode(", ", $options);
+            return false;
+        }
+        return true;
+    }
 }
