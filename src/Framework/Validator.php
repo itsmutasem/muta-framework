@@ -128,7 +128,7 @@ class Validator
             $this->errors[$field][] = "The {$field} field must be at least {$min} characters.";
             return false;
         }
-        if (is_numeric($value) || is_int($value) && $value < $min) {
+        if (!is_string($value) && is_numeric($value) && $value < $min) {
             $this->errors[$field][] = "The {$field} field must be at least {$min}.";
             return false;
         }
