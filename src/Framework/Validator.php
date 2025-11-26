@@ -2,6 +2,7 @@
 
 namespace Framework;
 
+use Framework\Exceptions\ValidatorException;
 use Framework\Security\Sanitizer;
 
 class Validator
@@ -28,7 +29,7 @@ class Validator
                 [$name, $param] = array_pad(explode(":", $rule, 2), 2, null);
                 $method = 'validate' . str_replace(' ', '', ucwords(str_replace(['-', '_'], ' ', $name)));
                 if (!method_exists($this, $method)) {
-                    throw new \Exception("Validation rule {$name} is not supported.");
+                    throw new ValidatorException("Validation rule '{$name}' is not supported.");
                 }
                 $ok = $this->{$method}($field, $value, $param);
                 if (!$ok) break;
