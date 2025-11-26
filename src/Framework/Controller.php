@@ -37,4 +37,10 @@ abstract class Controller
         $this->response->redirect($url);
         return $this->response;
     }
+
+    protected function validate(array $rules): Validator
+    {
+        $validator = new Validator($this->request->post, $rules);
+        return $validator;
+    }
 }
