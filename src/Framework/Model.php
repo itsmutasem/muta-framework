@@ -10,15 +10,6 @@ abstract class Model
     protected $table;
 
     protected array $errors = [];
-    protected function validate(array $data): void{}
-    protected function addError(string $field, string $message): void
-    {
-        $this->errors[$field] = $message;
-    }
-    public function getErrors(): array
-    {
-        return $this->errors;
-    }
 
     private function getTable(): string
     {
@@ -60,10 +51,6 @@ abstract class Model
 
     public function create(array $data): bool
     {
-        $this->validate($data);
-        if (!empty($this->errors)){
-            return false;
-        }
         $columns = implode(", ", array_keys($data));
         $values = implode(", ", array_fill(0, count($data), "?"));
         $sql = "INSERT INTO {$this->getTable()} ($columns)
@@ -85,9 +72,6 @@ abstract class Model
 
     public function update(string $id, array $data): bool
     {
-        $this->validate($data);
-        if (!empty($this->errors)){
-        }
         $sql = "UPDATE {$this->getTable()}";
         unset($data['id']);
         $assignments = array_keys($data);
