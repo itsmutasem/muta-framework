@@ -50,17 +50,18 @@ class Products extends Controller
 
     public function store(): Response
     {
-        $data = [
-            'name' => $this->request->post['name'],
-            'description' => $this->request->post['description'],
-        ];
+        $validator = $this->request->validate([
+            'name' => 'required|max:10',
+            'description' => 'required|min:10'
+        ]);
+        if ($validator->fails()) {
+            return $this->view('Products/create', ['errors' => $validator->errors()]);
+        }
+        $data = $validator->validated();
         if ($this->model->create($data)) {
             return $this->redirect("/products/{$this->model->getInsertID()}/show");
-        } else {
-            return $this->view("Products/create", ['errors' => $this->model->getErrors(),
-                'product' => $data]);
         }
-
+        return $this->view("Products/create", ['product' => $data]);
     }
 
     public function edit(string $id): Response
