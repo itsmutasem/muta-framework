@@ -59,4 +59,13 @@ class Validator
     {
         return Sanitizer::clean($value);
     }
+
+    protected function validateRequired($field, $value, $param): bool
+    {
+        if ($value === null || $value === '') {
+            $this->errors[$field][] = "The {$field} field is required.";
+            return false;
+        }
+        return true;
+    }
 }
