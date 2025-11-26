@@ -113,7 +113,7 @@ class Validator
             $this->errors[$field][] = "The {$field} field may not be greater than {$max} characters.";
             return false;
         }
-        if (is_numeric($value) || is_int($value) && $value > $max) {
+        if (!is_string($value) && is_numeric($value) && $value > $max) {
             $this->errors[$field][] = "The {$field} field may not be greater than {$max}.";
             return false;
         }
