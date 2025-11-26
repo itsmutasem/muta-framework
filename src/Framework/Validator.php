@@ -143,4 +143,13 @@ class Validator
         }
         return true;
     }
+
+    protected function validateBool($field, $value, $param): bool
+    {
+        if ($value !== null && !is_bool($value)) {
+            $this->errors[$field][] = "The {$field} field must be a boolean.";
+            return false;
+        }
+        return true;
+    }
 }
