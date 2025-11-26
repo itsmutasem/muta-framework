@@ -69,10 +69,19 @@ class Validator
         return true;
     }
 
-    public function validateString($field, $value, $param): bool
+    protected function validateString($field, $value, $param): bool
     {
         if ($value !== null && !is_string($value)) {
             $this->errors[$field][] = "The {$field} field must be a string.";
+            return false;
+        }
+        return true;
+    }
+
+    protected function validateInt($field, $value, $param): bool
+    {
+        if ($value !== null && !filter_var($value, FILTER_VALIDATE_INT) && !is_int($value)) {
+            $this->errors[$field][] = "The {$field} field must be an integer.";
             return false;
         }
         return true;
