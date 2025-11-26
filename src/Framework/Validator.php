@@ -68,4 +68,13 @@ class Validator
         }
         return true;
     }
+
+    public function validateString($field, $value, $param): bool
+    {
+        if ($value !== null && !is_string($value)) {
+            $this->errors[$field][] = "The {$field} field must be a string.";
+            return false;
+        }
+        return true;
+    }
 }
