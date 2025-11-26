@@ -104,4 +104,19 @@ class Validator
         }
         return true;
     }
+
+    protected function validateMax($field, $value, $param): bool
+    {
+        if ($value === null) return true;
+        $max = (int) $param;
+        if (is_string($value) && mb_strlen($value) > $max) {
+            $this->errors[$field][] = "The {$field} field may not be greater than {$max} characters.";
+            return false;
+        }
+        if (is_numeric($value) && is_null($value) && $value > $max) {
+            $this->errors[$field][] = "The {$field} field may not be greater than {$max}.";
+            return false;
+        }
+        return true;
+    }
 }
