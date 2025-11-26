@@ -134,4 +134,13 @@ class Validator
         }
         return true;
     }
+
+    protected function validateUrl($field, $value, $param): bool
+    {
+        if ($value !== null && !filter_var($value, FILTER_VALIDATE_URL)) {
+            $this->errors[$field][] = "The {$field} field must be a valid URL.";
+            return false;
+        }
+        return true;
+    }
 }
