@@ -95,4 +95,13 @@ class Validator
         }
         return true;
     }
+
+    protected function validateEmail($field, $value, $param): bool
+    {
+        if ($value !== null && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
+            $this->errors[$field][] = "The {$field} field must be a valid email address.";
+            return false;
+        }
+        return true;
+    }
 }
