@@ -74,4 +74,14 @@ class Sanitizer
     {
         return escapeshellarg($input);
     }
+
+    public static function escapeForXPath(string $input): string
+    {
+        if (strpos($input, "'") !== false) {
+            $parts = explode("'", $input);
+            $concat = array_map(function ($p) { return "'" . $p . "'"; }, $parts);
+            return "concat(" . implode(",\"'\", ", $concat) . ")";
+        }
+        return "'" . $input . "'";
+    }
 }
