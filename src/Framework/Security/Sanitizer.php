@@ -46,17 +46,27 @@ class Sanitizer
         return $data;
     }
 
-    protected static function removeControlChars(string $space): string
-    {
-        $space = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F\x{00A0}]/u', '', $space);
-        return $space;
-    }
-
     public static function cleanArray(array $array): array
     {
         foreach ($array as $key => $value) {
             $array[$key] = self::clean($value);
         }
         return $array;
+    }
+
+    protected static function removeControlChars(string $space): string
+    {
+        $space = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F\x{00A0}]/u', '', $space);
+        return $space;
+    }
+
+    public static function safeFile(string $filename): string
+    {
+        $basename = basename($filename);
+        $safe = preg_replace('/[^A-Za-z0-9\.\-\_]/', '_', $basename);
+        if (strpos($safe, '.') === 0) {
+            $safe = 'file' . $safe;
+        }
+        return $safe;
     }
 }
