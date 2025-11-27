@@ -20,6 +20,7 @@ class Sanitizer
         }
 
         $data = self::removeControlChars($data);
+        $data = html_entity_decode($data, ENT_QUOTES | ENT_HTML5, 'UTF-8');
     }
 
     protected static function removeControlChars(string $space): string
