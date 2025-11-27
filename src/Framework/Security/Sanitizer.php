@@ -21,6 +21,7 @@ class Sanitizer
 
         $data = self::removeControlChars($data);
         $data = html_entity_decode($data, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $data = preg_replace('#<\s*(script|style)[^>]*>.*?<\s*/\s*/\1\s*>#is','', $data);
     }
 
     protected static function removeControlChars(string $space): string
