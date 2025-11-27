@@ -43,6 +43,7 @@ class Sanitizer
         $data = preg_replace('/\b(javascript|data|vbscript)\s*:/i', '', $data);
         $data = htmlspecialchars($data, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8');
         $data = trim(preg_replace('/\s+/u', ' ', $data));
+        return $data;
     }
 
     protected static function removeControlChars(string $space): string
