@@ -38,6 +38,7 @@ class Sanitizer
             },
             $data
         );
+        $data = preg_replace('#<\s*(svg|math|iframe|object|embed)[^>]*>.*?<\s*/\s*\1\s*>#is', '', $data);
     }
 
     protected static function removeControlChars(string $space): string
