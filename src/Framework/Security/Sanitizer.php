@@ -25,6 +25,19 @@ class Sanitizer
         $data = preg_replace('#<\?xml[^>]*\?>#i', '', $data);
         $data = preg_replace('#<!DOCTYPE[^>]*>#is', '', $data);
         $data = preg_replace('#<!\[CDATA\[.*?\]\]>#is', '', $data);
+        $data = preg_replace_callback(
+            '#<([a-z0-9]+)([^>]*)>#is',
+            function ($matches) {
+                $tag = $matches[1];
+                $attrs = $matches[2];
+                $attrs = preg_replace('/\s+on[a-z\-]+\s*=\s*(["\']).*?\1/is', '', $attrs);
+                $attrs = preg_replace('/\s+on[a-z\-]+\s*=\s*[^>\s]*/is', '', $attrs);
+                $attrs = preg_replace('/\s+[a-z\-]+:\s*[^>\s]*/is', '', $attrs);
+                $attrs = preg_replace('/\s+(href|src)\s*=\s*(["\']?)\s*(javascript:|data:)[^"\'>\s]*\2/iu', '', $attrs);
+                return "<{$tag}{$attrs}>";
+            },
+            $data
+        );
     }
 
     protected static function removeControlChars(string $space): string
