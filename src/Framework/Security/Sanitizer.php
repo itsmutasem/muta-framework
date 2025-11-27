@@ -19,12 +19,13 @@ class Sanitizer
             return $data;
         }
 
-        $data = preg_replace('/[\x00-\x1F\x7f]/u', '', $data);
-        $data = preg_replace('#<(secript|style)[^>]*>.*?</\1>#is', '', $data);
-        $data = strip_tags($data);
-        $data = htmlspecialchars($data, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8');
-        $data = trim($data);
-        return $data;
+        $data = self::removeControlChars($data);
+    }
+
+    protected static function removeControlChars(string $space): string
+    {
+        $space = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F\x{00A0}]/u', '', $space);
+        return $space;
     }
 
     public static function cleanArray(array $array): array
