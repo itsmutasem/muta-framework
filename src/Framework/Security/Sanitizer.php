@@ -84,4 +84,13 @@ class Sanitizer
         }
         return "'" . $input . "'";
     }
+
+    public static function createSafeDom(): \DOMDocument
+    {
+        $dom = new \DOMDocument();
+        libxml_use_internal_errors(true);
+        $dom->resolveExternals = false;
+        $dom->substituteEntities = false;
+        return $dom;
+    }
 }
