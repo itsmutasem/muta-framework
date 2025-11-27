@@ -69,4 +69,9 @@ class Sanitizer
         }
         return $safe;
     }
+
+    public static function escapeForShell(string $input): string
+    {
+        return escapeshellarg($input);
+    }
 }
