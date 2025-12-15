@@ -4,49 +4,49 @@ declare(strict_types=1);
 
 namespace App\Middleware;
 
+use Framework\MiddlewareInterface;
 use Framework\Request;
 use Framework\RequestHandlerInterface;
 use Framework\Response;
 
-final class RateLimitMiddleware
+final class RateLimitMiddleware implements MiddlewareInterface
 {
     private int $limit;
     private int $windowSeconds;
     private string $keyPrefix;
 
-    public function __construct(int $limit = 60, int $windowSeconds = 60, string $keyPrefix = 'rate_limit_')
+    public function __construct(int $limit = 60, int $windowSeconds = 60, string $keyPrefix = 'rl')
     {
         $this->limit = $limit;
         $this->windowSeconds = $windowSeconds;
         $this->keyPrefix = $keyPrefix;
     }
 
-    public function process(Request $request, RequestHandlerInterface $handler): Response
+    public function process(Request $request, RequestHandlerInterface $next): Response
     {
         $ip = $this->getClientIp($request);
-        $method = strtoupper($request->method() ?? 'GET');
-        $path = $request->path() ?? '/';
-        $bucket = (int) floor(time() / $this->windowSeconds);
+        $method = strtoupper((string) ($request->method ?? 'GET'));
+        $path = (string) ($request->server['REQUEST_URI'] ?? '/');
         $key = $this->keyPrefix . ':' . sha1($method . '|' . $path . '|' . $ip) . ':' . $bucket;
         $count = $this->increment($key, $this->windowSeconds + 1);
         if ($count > $this->limit) {
             $retryAfter = $this->windowSeconds - (time() % $this->windowSeconds);
             return new Response(
                 429,
+                'Too Many Requests',
                 [
                     'Content-Type' => 'text/plain',
-                    'Retry-After' => (string) $retryAfter
-                ],
-                'Too Many Requests'
+                    'Retry-After' => (string) $retryAfter,
+                ]
             );
         }
-        return $handler->handle($request);
+        return $next->handle($request);
     }
 
-    public function increment(string $key, int $ttlSeconds): int
+    private function increment(string $key, int $ttlSeconds): int
     {
         if (!function_exists('apcu_fetch')) {
-            throw new \RuntimeException('APCu extension is required for rate limiting');
+            throw new \RuntimeException('APCu is required for RateLimitMiddleware (or replace with Redis/file store).');
         }
         $value = apcu_fetch($key);
         if ($value === false) {
@@ -56,9 +56,9 @@ final class RateLimitMiddleware
         return (int) apcu_inc($key);
     }
 
-    public function getClientIp(Request $request): string
+    private function getClientIp(Request $request): string
     {
-        $ip = $request->server('REMOTE_ADDR');
+        $ip = $request->server['REMOTE_ADDR'] ?? null;
         return is_string($ip) && $ip !== '' ? $ip : '0.0.0.0';
     }
 }
