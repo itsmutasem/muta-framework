@@ -9,7 +9,7 @@ use Framework\Request;
 use Framework\RequestHandlerInterface;
 use Framework\Response;
 
-final class RateLimitMiddleware implements MiddlewareInterface
+class RateLimitMiddleware implements MiddlewareInterface
 {
     private int $limit;
     private int $windowSeconds;
