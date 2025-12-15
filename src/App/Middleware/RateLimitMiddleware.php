@@ -32,4 +32,10 @@ final class RateLimitMiddleware
         }
         return (int) apcu_inc($key);
     }
+
+    public function getClientIp(Request $request): string
+    {
+        $ip = $request->server('REMOTE_ADDR');
+        return is_string($ip) && $ip !== '' ? $ip : '0.0.0.0';
+    }
 }
