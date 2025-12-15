@@ -20,6 +20,29 @@ final class RateLimitMiddleware
         $this->windowSeconds = $windowSeconds;
         $this->keyPrefix = $keyPrefix;
     }
+
+    public function process(Request $request, RequestHandlerInterface $handler): Response
+    {
+        $ip = $this->getClientIp($request);
+        $method = strtoupper($request->method() ?? 'GET');
+        $path = $request->path() ?? '/';
+        $bucket = (int) floor(time() / $this->windowSeconds);
+        $key = $this->keyPrefix . ':' . sha1($method . '|' . $path . '|' . $ip) . ':' . $bucket;
+        $count = $this->increment($key, $this->windowSeconds + 1);
+        if ($count > $this->limit) {
+            $retryAfter = $this->windowSeconds - (time() % $this->windowSeconds);
+            return new Response(
+                429,
+                [
+                    'Content-Type' => 'text/plain',
+                    'Retry-After' => (string) $retryAfter
+                ],
+                'Too Many Requests'
+            );
+        }
+        return $handler->handle($request);
+    }
+
     public function increment(string $key, int $ttlSeconds): int
     {
         if (!function_exists('apcu_fetch')) {
