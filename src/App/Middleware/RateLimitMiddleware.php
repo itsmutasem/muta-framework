@@ -27,6 +27,7 @@ final class RateLimitMiddleware implements MiddlewareInterface
         $ip = $this->getClientIp($request);
         $method = strtoupper((string) ($request->method ?? 'GET'));
         $path = (string) ($request->server['REQUEST_URI'] ?? '/');
+        $bucket = (int) floor(time() / $this->windowSeconds);
         $key = $this->keyPrefix . ':' . sha1($method . '|' . $path . '|' . $ip) . ':' . $bucket;
         $count = $this->increment($key, $this->windowSeconds + 1);
         if ($count > $this->limit) {
