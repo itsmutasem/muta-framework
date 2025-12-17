@@ -1,0 +1,18 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{namespace}};
+
+use Framework\MiddlewareInterface;
+use Framework\Request;
+use Framework\Response;
+use Framework\RequestHandlerInterface;
+
+class {{class}} implements MiddlewareInterface
+{
+    public function process(Request $request, RequestHandlerInterface $next): Response
+    {
+        return $next->handle($request);
+    }
+}
