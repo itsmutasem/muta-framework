@@ -14,7 +14,7 @@ class MakeController extends Command
 
     public function description(): string
     {
-
+        return 'Create a new controller';
     }
 
     public function handle(array $args): void
