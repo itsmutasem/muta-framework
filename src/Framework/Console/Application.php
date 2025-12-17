@@ -15,4 +15,12 @@ class Application
     {
         $this->commands[$command->signature()] = $command;
     }
+
+    protected function list(): void
+    {
+        echo "Muta CLI available commands:\n\n";
+        foreach ($this->commands as $cmd) {
+            echo " - {$cmd->signature()} → {$cmd->description()}\n";
+        }
+    }
 }
