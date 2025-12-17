@@ -1,0 +1,11 @@
+{
+  "name": "mutasem/muta-framework",
+  "description": "Muta PHP Framework",
+  "type": "project",
+  "autoload": {
+    "psr-4": {
+      "Framework\\": "src/Framework/",
+      "App\\": "src/App/"
+    }
+  }
+}
