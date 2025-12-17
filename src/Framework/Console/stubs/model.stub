@@ -1,0 +1,10 @@
+<?php
+
+namespace {{namespace}};
+
+use Framework\Model;
+
+class {{class}} extends Model
+{
+    protected $table = '{{table}}';
+}
