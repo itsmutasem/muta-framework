@@ -1,0 +1,52 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{namespace}};
+
+use Framework\Controller;
+use Framework\Response;
+
+class {{class}} extends Controller
+{
+    public function __construct(/* private {model} $model */)
+    {
+    }
+
+    public function index(): Response
+    {
+        //
+    }
+
+    public function show(): Response
+    {
+        //
+    }
+
+    public function create(): Response
+    {
+        //
+    }
+
+    public function store(): Response
+    {
+        //
+    }
+
+    public function edit(): Response
+    {
+        //
+    }
+
+    public function update(): Response
+    {
+        //
+    }
+
+    public function destroy(): Response
+    {
+        //
+    }
+}
+
+?>
