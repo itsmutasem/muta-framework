@@ -9,7 +9,7 @@ class MakeController extends Command
 
     public function signature(): string
     {
-        
+        return 'make:controller';
     }
 
     public function description(): string
