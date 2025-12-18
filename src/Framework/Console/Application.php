@@ -3,6 +3,7 @@
 namespace Framework\Console;
 
 use Framework\Console\Commands\MakeController;
+use Framework\Console\Commands\MakeModel;
 
 class Application
 {
@@ -11,6 +12,7 @@ class Application
     public function __construct()
     {
         $this->register(new MakeController());
+        $this->register(new MakeModel());
     }
 
     public function register(Command $command): void
