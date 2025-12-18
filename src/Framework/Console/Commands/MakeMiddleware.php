@@ -9,7 +9,7 @@ class MakeMiddleware extends Command
 
     public function signature(): string
     {
-        // TODO: Implement signature() method.
+        return 'make:middleware';
     }
 
     public function description(): string
