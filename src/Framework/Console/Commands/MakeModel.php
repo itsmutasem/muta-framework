@@ -14,7 +14,7 @@ class MakeModel extends Command
 
     public function description(): string
     {
-        // TODO: Implement description() method.
+        return 'Create a new model';
     }
 
     public function handle(array $args): void
