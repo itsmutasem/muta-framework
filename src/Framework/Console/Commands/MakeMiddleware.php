@@ -14,7 +14,7 @@ class MakeMiddleware extends Command
 
     public function description(): string
     {
-        // TODO: Implement description() method.
+        return 'Create a new middleware';
     }
 
     public function handle(array $args): void
