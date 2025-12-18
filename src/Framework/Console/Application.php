@@ -3,6 +3,7 @@
 namespace Framework\Console;
 
 use Framework\Console\Commands\MakeController;
+use Framework\Console\Commands\MakeMiddleware;
 use Framework\Console\Commands\MakeModel;
 
 class Application
@@ -13,6 +14,7 @@ class Application
     {
         $this->register(new MakeController());
         $this->register(new MakeModel());
+        $this->register(new MakeMiddleware());
     }
 
     public function register(Command $command): void
