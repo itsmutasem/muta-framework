@@ -9,7 +9,7 @@ class MakeModel extends Command
 
     public function signature(): string
     {
-        // TODO: Implement signature() method.
+        return 'make:model';
     }
 
     public function description(): string
