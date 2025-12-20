@@ -48,9 +48,24 @@ class Application
         $DIM       = "\033[2m";
         $UNDERLINE = "\033[4m";
 
+
+        $version = 'beta';
+        echo $RED;
+        echo <<<LOGO
+███╗   ███╗██╗   ██╗████████╗ █████╗ 
+████╗ ████║██║   ██║╚══██╔══╝██╔══██╗
+██╔████╔██║██║   ██║   ██║   ███████║
+██║╚██╔╝██║██║   ██║   ██║   ██╔══██║
+██║ ╚═╝ ██║╚██████╔╝   ██║   ██║  ██║
+╚═╝     ╚═╝ ╚═════╝    ╚═╝   ╚═╝  ╚═╝
+
+LOGO;
+        echo $RESET;
+        echo "{$BLUE}PHP Framework Developed by: {$BOLD}Mutasem Mustafa{$RESET}\n";
+        echo "{$YELLOW}Version:{$UNDERLINE}{$version}{$RESET}\n\n";
         echo "Muta CLI available commands:\n\n";
         foreach ($this->commands as $cmd) {
-            echo " - {$cmd->signature()} → {$cmd->description()}\n";
+            echo " - {$GREEN}{$cmd->signature()}{$RESET} → {$cmd->description()}\n";
         }
     }
 }
