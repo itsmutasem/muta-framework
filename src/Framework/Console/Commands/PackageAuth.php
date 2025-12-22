@@ -19,6 +19,18 @@ class PackageAuth extends Command
 
     public function handle(array $args): void
     {
-        // TODO: Implement handle() method.
+        $this->info('Installing Auth package...');
+    }
+
+    public function publish(string $from, string $to): void
+    {
+        if (!is_dir(dirname($to))) {
+            mkdir(dirname($to), 0777, true);
+        }
+        if (file_exists($to)) {
+            $this->error("File '{$to}' already exists, skipped");
+            return;
+        }
+        copy($from, $to);
     }
 }
