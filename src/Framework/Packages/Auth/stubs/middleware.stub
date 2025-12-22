@@ -1,0 +1,21 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Middleware;
+
+use Framework\MiddlewareInterface;
+use Framework\Request;
+use Framework\Response;
+use Framework\RequestHandlerInterface;
+
+class LoginMiddleware implements MiddlewareInterface
+{
+    public function process(Request $request, RequestHandlerInterface $next): Response
+    {
+        if (!isset($_SESSION['logged_in'])) {
+            header("Location: auth/login");
+        }
+        return $next->handle($request);
+    }
+}
