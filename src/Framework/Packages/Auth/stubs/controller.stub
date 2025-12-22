@@ -52,6 +52,16 @@ class TestController extends Controller
 
     public function logout(): Response
     {
-        //
+        // Start session if not already started
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+
+        // Destroy session data
+        session_unset();
+        session_destroy();
+
+        // Redirect to login page
+        return $this->redirect('auth/login');
     }
 }
