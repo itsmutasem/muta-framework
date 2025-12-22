@@ -13,7 +13,7 @@ class LoginMiddleware implements MiddlewareInterface
 {
     public function process(Request $request, RequestHandlerInterface $next): Response
     {
-        if (!isset($_SESSION['logged_in'])) {
+        if (!isset($_SESSION['user_id'])) {
             header("Location: auth/login");
         }
         return $next->handle($request);

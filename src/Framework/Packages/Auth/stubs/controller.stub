@@ -44,7 +44,6 @@ class TestController extends Controller
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['email'] = $user['email'];
         $_SESSION['password'] = $user['password'];
-        $_SESSION['logged_in'] = true;
 
         // Redirect to home page
         return $this->redirect('/');
