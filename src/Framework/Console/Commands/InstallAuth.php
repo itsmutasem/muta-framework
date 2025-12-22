@@ -4,7 +4,7 @@ namespace Framework\Console\Commands;
 
 use Framework\Console\Command;
 
-class PackageAuth extends Command
+class InstallAuth extends Command
 {
 
     public function signature(): string
@@ -28,9 +28,17 @@ class PackageAuth extends Command
             mkdir(dirname($to), 0777, true);
         }
         if (file_exists($to)) {
-            $this->error("File '{$to}' already exists, skipped");
+            $this->warning("File '{$to}' already exists, skipped");
             return;
         }
         copy($from, $to);
+    }
+
+    public function copyController(): void
+    {
+        $this->publish(
+            BASE_PATH . '/src/Framework/Packages/Auth/stubs/controller.stub',
+            BASE_PATH . '/src/App/Controllers/Auth/AuthController.php'
+        );
     }
 }
