@@ -41,4 +41,12 @@ class InstallAuth extends Command
             BASE_PATH . '/src/App/Controllers/Auth/AuthController.php'
         );
     }
+
+    public function copyModel(): void
+    {
+        $this->publish(
+            BASE_PATH . '/src/Framework/Packages/Auth/stubs/model.stub',
+            BASE_PATH . '/src/App/Models/User.php'
+        );
+    }
 }
