@@ -57,4 +57,12 @@ class InstallAuth extends Command
             BASE_PATH . '/src/App/Middleware/AuthenticateMiddleware.php'
         );
     }
+
+    public function copyView(): void
+    {
+        $this->publish(
+            BASE_PATH . '/src/Framework/Packages/Auth/stubs/view.stub',
+            BASE_PATH . '/views/auth/login.mvc.php'
+        );
+    }
 }
