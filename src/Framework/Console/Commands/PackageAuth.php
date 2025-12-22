@@ -9,7 +9,7 @@ class PackageAuth extends Command
 
     public function signature(): string
     {
-        // TODO: Implement signature() method.
+        return 'package:auth';
     }
 
     public function description(): string
