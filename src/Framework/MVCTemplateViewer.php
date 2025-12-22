@@ -15,9 +15,9 @@ class MVCTemplateViewer implements TemplateViewerInterface
     public function render(string $template, array $data = []): string
     {
         $views_dir = dirname(__DIR__, 2) . "/views/";
-        $code = file_get_contents($views_dir . $template . ".mvc.php");
+        $code = file_get_contents($views_dir . $template . ".muta.php");
         if (preg_match('#^<< extends "(?<template>.*)" >>#', $code, $matches) === 1) {
-            $base = file_get_contents($views_dir . $matches["template"] . ".mvc.php");
+            $base = file_get_contents($views_dir . $matches["template"] . ".muta.php");
             $blocks = $this->getBlock($code);
             $code = $this->replaceYields($base, $blocks);
         }
@@ -67,7 +67,7 @@ class MVCTemplateViewer implements TemplateViewerInterface
         preg_match_all('#<< include "(?<template>.*?)" >>#', $code, $matches, PREG_SET_ORDER);
         foreach ($matches as $match) {
             $template = $match['template'];
-            $content = file_get_contents($dir . $template . ".mvc.php");
+            $content = file_get_contents($dir . $template . ".muta.php");
             $code = preg_replace("#<< include \"$template\" >>#", $content, $code);
         }
         return $code;
