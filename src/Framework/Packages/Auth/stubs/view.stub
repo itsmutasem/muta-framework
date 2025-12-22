@@ -1,0 +1,22 @@
+<< extends "base" >>
+<< block title >>Login<< endblock >>
+<< block body >>
+
+<h1>Login</h1>
+<form method="post" action="{{ /login }}">
+<input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+<label for="email">Email</label>
+<input type="text" name="email" id="email">
+<< if(!empty($errors['email'][0])) : >>
+    <p>{{ errors['email'][0] }}</p>
+<< endif; >>
+
+<label for="password">Password</label>
+<input type="password" name="password" id="password">
+<< if(!empty($errors['password'][0])) : >>
+<p>{{ errors['password'][0] }}</p>
+<< endif; >>
+
+<button type="submit">Login</button>
+<< endblock >>
