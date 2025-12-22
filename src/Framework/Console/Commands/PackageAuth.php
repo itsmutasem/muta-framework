@@ -14,7 +14,7 @@ class PackageAuth extends Command
 
     public function description(): string
     {
-        // TODO: Implement description() method.
+        return 'Install authentication scaffolding';
     }
 
     public function handle(array $args): void
