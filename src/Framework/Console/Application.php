@@ -2,6 +2,7 @@
 
 namespace Framework\Console;
 
+use Framework\Console\Commands\InstallAuth;
 use Framework\Console\Commands\MakeController;
 use Framework\Console\Commands\MakeMiddleware;
 use Framework\Console\Commands\MakeModel;
@@ -15,6 +16,7 @@ class Application
         $this->register(new MakeController());
         $this->register(new MakeModel());
         $this->register(new MakeMiddleware());
+        $this->register(new InstallAuth());
     }
 
     public function register(Command $command): void
