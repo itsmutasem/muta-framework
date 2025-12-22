@@ -4,18 +4,50 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Models\User;
 use Framework\Controller;
+use Framework\Request;
 use Framework\Response;
 
 class TestController extends Controller
 {
-    public function __construct(/* private {model} $model */)
+    public function __construct(private User $model)
     {
     }
 
-    public function login(): Response
+    public function login(Request $request): Response
     {
-        //
+        $validator = $this->request->validate([
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return $this->view('Products/create', ['errors' => $validator->errors()]);
+        }
+        $data = $validator->validated();
+        $user = $this->model->find($data['email']);
+
+        // If user doesn't exist or password doesn't match
+        if ($user || !password_verify($data['password'], $user['password'])) {
+            return $this->redirect('auth/login', ['errors' => ['login' => 'Invalid credentials']]);
+        }
+
+        // Regenerate session ID to prevent session fixation attacks
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            session_regenerate_id(true);
+        } else {
+            session_start();
+            session_regenerate_id(true);
+        }
+
+        // Store user information in session
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['email'] = $user['email'];
+        $_SESSION['password'] = $user['password'];
+        $_SESSION['logged_in'] = true;
+
+        // Redirect to home page
+        return $this->redirect('/');
     }
 
     public function logout(): Response
