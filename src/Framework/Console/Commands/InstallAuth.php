@@ -20,6 +20,11 @@ class InstallAuth extends Command
     public function handle(array $args): void
     {
         $this->info('Installing Auth package...');
+        $this->copyController();
+        $this->copyModel();
+        $this->copyMiddleware();
+        $this->copyView();
+        $this->success('Auth package installed successfully');
     }
 
     public function publish(string $from, string $to): void
