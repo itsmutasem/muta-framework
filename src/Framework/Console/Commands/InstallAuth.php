@@ -67,7 +67,7 @@ class InstallAuth extends Command
     {
         $this->publish(
             BASE_PATH . '/src/Framework/Packages/Auth/stubs/view.stub',
-            BASE_PATH . '/views/auth/login.mvc.php'
+            BASE_PATH . '/views/auth/login.muta.php'
         );
     }
 }

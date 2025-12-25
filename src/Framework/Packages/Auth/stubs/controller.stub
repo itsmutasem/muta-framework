@@ -15,6 +15,11 @@ class TestController extends Controller
     {
     }
 
+    public function loginPage(): Response
+    {
+        return $this->view('auth/login');
+    }
+
     public function login(Request $request): Response
     {
         $validator = $this->request->validate([
