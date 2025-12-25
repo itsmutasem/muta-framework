@@ -11,7 +11,7 @@ class MySqlGrammar
     {
         $columns = [];
         foreach ($blueprint->columns as $column) {
-            $columns[] = $this->compileCreate($column);
+            $columns[] = $this->compileColumn($column);
         }
         return sprintf(
             "CREATE TABLE %s (%s)",
@@ -42,7 +42,7 @@ class MySqlGrammar
         if ($column->primary) {
             $sql .= ' PRIMARY KEY';
         }
-        
+
         return $sql;
     }
 }
