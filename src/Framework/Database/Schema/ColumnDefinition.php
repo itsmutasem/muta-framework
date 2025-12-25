@@ -18,4 +18,11 @@ class ColumnDefinition
         $this->params = $params;
     }
 
+    public function nullable(): self
+    {
+        $this->nullable = true;
+        return $this;
+    }
+
+    
 }
