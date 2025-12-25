@@ -9,12 +9,12 @@ class MakeMigration extends Command
 
     public function signature(): string
     {
-        // TODO: Implement signature() method.
+        return 'make:migration';
     }
 
     public function description(): string
     {
-        // TODO: Implement description() method.
+        return 'Create a new migration file';
     }
 
     public function handle(array $args): void
