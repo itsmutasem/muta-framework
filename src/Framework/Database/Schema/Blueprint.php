@@ -22,6 +22,12 @@ class Blueprint
         return $this->addColumn('string', $name, $length);
     }
 
+    public function timestamps(): void
+    {
+        $this->columns[] = ['type' => 'timestamp', 'name' => 'created_at'];
+        $this->columns[] = ['type' => 'timestamp', 'name' => 'updated_at', 'nullable' => true];
+    }
+
     public function addColumn(string $type, string $name, mixed ...$params): ColumnDefinition
     {
         $column = new ColumnDefinition($type, $name, $params);
