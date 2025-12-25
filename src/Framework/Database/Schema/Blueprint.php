@@ -11,6 +11,12 @@ class Blueprint
     {
         $this->table = $table;
     }
+
+    public function uuid(string $name)
+    {
+        return $this->addColumn('uuid', $name);
+    }
+
     public function addColumn(string $type, string $name, mixed ...$params): ColumnDefinition
     {
         $column = new ColumnDefinition($type, $name, $params);
