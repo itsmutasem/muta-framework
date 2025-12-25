@@ -2,8 +2,17 @@
 
 namespace Framework\Console;
 
+use Framework\Container;
+
 abstract class Command
 {
+    protected Container $container;
+
+    public function setContainer(Container $container): void
+    {
+        $this->container = $container;
+    }
+
     abstract public function signature(): string;
     abstract public function description(): string;
     abstract public function handle(array $args): void;
