@@ -37,4 +37,9 @@ class Migrate extends Command
     {
         return $db->query("SELECT * FROM migrations")->fetchAll(PDO::FETCH_COLUMN);
     }
+
+    protected function nextBatch(PDO $db): int
+    {
+        return (int) $db->query("SELECT MAX(batch) FROM migrations")->fetchColumn() + 1;
+    }
 }
