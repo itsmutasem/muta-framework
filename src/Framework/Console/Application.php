@@ -5,6 +5,7 @@ namespace Framework\Console;
 use Framework\Console\Commands\InstallAuth;
 use Framework\Console\Commands\MakeController;
 use Framework\Console\Commands\MakeMiddleware;
+use Framework\Console\Commands\MakeMigration;
 use Framework\Console\Commands\MakeModel;
 
 class Application
@@ -16,6 +17,7 @@ class Application
         $this->register(new MakeController());
         $this->register(new MakeModel());
         $this->register(new MakeMiddleware());
+        $this->register(new MakeMigration());
         $this->register(new InstallAuth());
     }
 
