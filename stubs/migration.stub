@@ -1,0 +1,17 @@
+<?php
+
+use Framework\Database\Schema\Schema;
+use Framework\Database\Schema\Blueprint;
+
+return new class {
+    public function up(PDO $db) {
+        Schema::create('table_name', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->timestamps();
+        }, $db);
+    }
+
+    public function down(PDO $db) {
+        $db->exec("DROP TABLE IF EXISTS table_name");
+    }
+};
