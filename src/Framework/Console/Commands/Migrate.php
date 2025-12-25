@@ -9,12 +9,12 @@ class Migrate extends Command
 
     public function signature(): string
     {
-        // TODO: Implement signature() method.
+        return 'migrate';
     }
 
     public function description(): string
     {
-        // TODO: Implement description() method.
+        return 'Run the database migrations';
     }
 
     public function handle(array $args): void
