@@ -7,12 +7,12 @@ use PDO;
 
 class Schema
 {
-    public static function create(string $table, callable $callback): void
+    public static function create(string $table, callable $callback, PDO $db): void
     {
         $blueprint = new Blueprint($table);
         $callback($blueprint);
         $grammar = new MySqlGrammar();
         $sql = $grammar->compileCreate($blueprint);
-        app(PDO::class)->exec($sql);
+        $db->exec($sql);
     }
 }
