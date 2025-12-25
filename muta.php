@@ -7,4 +7,5 @@ require  __DIR__ . '/vendor/autoload.php';
 use Framework\Console\Application;
 
 $app = new Application();
+$app->boot();
 $app->run($argv);
