@@ -20,7 +20,29 @@ class Migrate extends Command
 
     public function handle(array $args): void
     {
-        // TODO: Implement handle() method.
+        $db = $this->container->get(PDO::class);
+        $this->info('Migrating...');
+        $this->ensureMigrationsTable($db);
+        $run = $this->getRunMigrations($db);
+        $files = glob(BASE_PATH . '/database/migrations/*.php');
+        $batch = $this->nextBatch($db);
+        foreach ($files as $file) {
+            $name = basename($file);
+            if (in_array($name, $run)) {
+                continue;
+            }
+
+            $this->info("Running migration: {$name}");
+
+            $migration = require $file;
+            $migration->up($db);
+            $stmt = $db->prepare("INSERT INTO migrations (migration, batch) VALUES (?, ?)");
+            $stmt->execute([$name, $batch]);
+            $this->success("Migration {$name} executed successfully");
+        }
+        $this->success('All migrations completed successfully.');
+    }
+
     protected function ensureMigrationsTable(PDO $db): void
     {
         $db->exec("
@@ -35,7 +57,9 @@ class Migrate extends Command
 
     protected function getRunMigrations(PDO $db): array
     {
-        return $db->query("SELECT * FROM migrations")->fetchAll(PDO::FETCH_COLUMN);
+        return $db
+            ->query("SELECT migration FROM migrations")
+            ->fetchAll(PDO::FETCH_COLUMN);
     }
 
     protected function nextBatch(PDO $db): int
