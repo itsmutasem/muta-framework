@@ -32,4 +32,9 @@ class Migrate extends Command
             )
         ");
     }
+
+    protected function getRunMigrations(PDO $db): array
+    {
+        return $db->query("SELECT * FROM migrations")->fetchAll(PDO::FETCH_COLUMN);
+    }
 }
