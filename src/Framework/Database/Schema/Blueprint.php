@@ -24,8 +24,8 @@ class Blueprint
 
     public function timestamps(): void
     {
-        $this->columns[] = ['type' => 'timestamp', 'name' => 'created_at'];
-        $this->columns[] = ['type' => 'timestamp', 'name' => 'updated_at', 'nullable' => true];
+        $this->addColumn('timestamp', 'created_at');
+        $this->addColumn('timestamp', 'updated_at')->nullable();
     }
 
     public function addColumn(string $type, string $name, mixed ...$params): ColumnDefinition
