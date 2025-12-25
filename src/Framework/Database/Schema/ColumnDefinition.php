@@ -29,4 +29,10 @@ class ColumnDefinition
         $this->unique = true;
         return $this;
     }
+
+    public function primary(): self
+    {
+        $this->primary = true;
+        return $this;
+    }
 }
