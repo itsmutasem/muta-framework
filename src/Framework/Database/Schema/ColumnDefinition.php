@@ -24,5 +24,9 @@ class ColumnDefinition
         return $this;
     }
 
-    
+    public function unique(): self
+    {
+        $this->unique = true;
+        return $this;
+    }
 }
