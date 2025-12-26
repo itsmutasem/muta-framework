@@ -39,4 +39,15 @@ class CsrfGuard implements MiddlewareInterface
 
         return $next->handle($request);
     }
+
+    private function isExcepted(string $path): bool
+    {
+        foreach ($this->except as $except) {
+            $pattern = '#^' . str_replace('\*', '.*', preg_quote($except, '#')) . '$#';
+            if (preg_match($pattern, $path)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
