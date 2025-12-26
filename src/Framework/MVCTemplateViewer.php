@@ -24,6 +24,7 @@ class MVCTemplateViewer implements TemplateViewerInterface
         $code = $this->loadIncludes($views_dir, $code);
         $code = $this->replaceVariables($code);
         $code = $this->replacePHP($code);
+        $code = $this->injectCsrf($code);
         $data['csrf_token'] = $this->csrfToken->generate();
         extract($data, EXTR_SKIP);
         ob_start();
@@ -71,5 +72,20 @@ class MVCTemplateViewer implements TemplateViewerInterface
             $code = preg_replace("#<< include \"$template\" >>#", $content, $code);
         }
         return $code;
+    }
+
+    private function injectCsrf(string $code): string
+    {
+        $token = $this->csrfToken->generate();
+        return preg_replace_callback(
+            '#<form\s+[^>]*method\s*=\s*["\']post["\'][^>]*>#i',
+            function ($matches) use ($token) {
+                if (str_contains($matches[0], 'csrf_token')) {
+                    return $matches[0];
+                }
+                return $matches[0] . PHP_EOL . '<input type="hidden" name="csrf_token" value="' . htmlspecialchars($token) . '">';
+            },
+            $code
+        );
     }
 }
