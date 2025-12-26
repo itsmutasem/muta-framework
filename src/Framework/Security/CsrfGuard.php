@@ -25,6 +25,13 @@ class CsrfGuard implements MiddlewareInterface
                 throw new CsrfException("CSRF token mismatch");
             }
         }
+
+        $origin = $request->server['HTTP_ORIGIN'] ?? null;
+        $host = $request->server['HTTP_HOST'] ?? null;
+        if ($origin && !str_contains($origin, $host)) {
+            throw new CsrfException("Invalid CSRF origin");
+        }
+
         return $next->handle($request);
     }
 }
