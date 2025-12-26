@@ -23,9 +23,14 @@ class CsrfGuard implements MiddlewareInterface
 
     public function process(Request $request, RequestHandlerInterface $next): Response
     {
-        $method = $request->method;
-        if (in_array($method, ['POST', 'PUT', 'DELETE', 'PATCH'])) {
-            $token = $request->post['csrf_token'] ?? $request->server['HTTP_X_CSRF_TOKEN'] ?? null;
+        if ($this->isExcepted($request->uri)) {
+            return $next->handle($request);
+        }
+
+        if (in_array($request->method, ['POST', 'PUT', 'DELETE', 'PATCH'])) {
+            $token = $request->post['csrf_token']
+                ?? $request->server['HTTP_X_CSRF_TOKEN']
+                ?? null;
             if (!$this->csrfToken->verify($token)) {
                 throw new CsrfException("CSRF token mismatch");
             }
