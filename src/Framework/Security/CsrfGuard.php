@@ -12,6 +12,11 @@ use Framework\Response;
 
 class CsrfGuard implements MiddlewareInterface
 {
+    private array $except = [
+        '/webhook/*',
+        '/api/public/*'
+    ];
+
     public function __construct(private CsrfToken $csrfToken)
     {
     }
