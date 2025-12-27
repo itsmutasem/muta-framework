@@ -2,12 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Middleware;
-
-use Framework\MiddlewareInterface;
-use Framework\Request;
-use Framework\RequestHandlerInterface;
-use Framework\Response;
+namespace Framework;
 
 class RateLimitMiddleware implements MiddlewareInterface
 {

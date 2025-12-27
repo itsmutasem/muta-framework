@@ -1,7 +1,7 @@
 <?php
 
 use App\Middleware\LoginRateLimitMiddleware;
-use App\Middleware\RateLimitMiddleware;
+use Framework\RateLimitMiddleware;
 use Framework\Security\CsrfGuard;
 
 return [
