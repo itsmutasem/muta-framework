@@ -7,6 +7,7 @@ use Framework\Console\Commands\MakeController;
 use Framework\Console\Commands\MakeMiddleware;
 use Framework\Console\Commands\MakeMigration;
 use Framework\Console\Commands\MakeModel;
+use Framework\Console\Commands\MakeRateLimit;
 use Framework\Console\Commands\Migrate;
 use Framework\Container;
 use Framework\Dotenv;
@@ -25,8 +26,9 @@ class Application
         $this->register(new MakeModel());
         $this->register(new MakeMiddleware());
         $this->register(new MakeMigration());
-        $this->register(new InstallAuth());
+        $this->register(new MakeRateLimit());
         $this->register(new Migrate());
+        $this->register(new InstallAuth());
     }
 
     public function register(Command $command): void
