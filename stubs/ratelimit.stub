@@ -1,0 +1,15 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Middleware;
+
+use Framework\RateLimitMiddleware;
+
+final class {{class}} extends RateLimitMiddleware
+{
+    public function __construct()
+    {
+        parent::__construct({{max}}, {{decay}}, '{{key}}');
+    }
+}
