@@ -9,7 +9,7 @@ class MakeRateLimit extends Command
 
     public function signature(): string
     {
-        // TODO: Implement signature() method.
+        return 'make:ratelimit';
     }
 
     public function description(): string
