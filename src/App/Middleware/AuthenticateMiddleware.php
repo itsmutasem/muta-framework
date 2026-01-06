@@ -9,7 +9,7 @@ use Framework\Request;
 use Framework\Response;
 use Framework\RequestHandlerInterface;
 
-class LoginMiddleware implements MiddlewareInterface
+class AuthenticateMiddleware implements MiddlewareInterface
 {
     public function process(Request $request, RequestHandlerInterface $next): Response
     {
