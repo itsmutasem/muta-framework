@@ -78,7 +78,7 @@ class TestController extends Controller
     {
         $validator = $this->request->validate([
             'name' => 'required',
-            'email' => 'required|unique:users',
+            'email' => 'required|email',
             'password' => 'required|min:8',
             'password_confirmation' => 'required'
         ]);
@@ -91,6 +91,11 @@ class TestController extends Controller
 
         if ($data['password'] !== $data['password_confirmation']) {
             return $this->redirect('auth/signup', ['errors' => ['password' => 'Passwords do not match']]);
+        }
+
+        $existingUser = $this->model->find($data['email']);
+        if ($existingUser) {
+            return $this->redirect('auth/signup', ['errors' => ['email' => 'Email already exists']]);
         }
     }
 }
