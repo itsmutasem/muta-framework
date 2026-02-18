@@ -81,5 +81,11 @@ class TestController extends Controller
             'email' => 'required|unique:users',
             'password' => 'required|min:8',
             'password_confirmation' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return $this->view('auth/signup', ['errors' => $validator->errors()]);
+        }
+        
     }
 }
