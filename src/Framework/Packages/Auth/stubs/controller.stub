@@ -73,4 +73,13 @@ class TestController extends Controller
     {
         return $this->view('auth/signup');
     }
+
+    public function signup(Request $request): Response
+    {
+        $validator = $this->request->validate([
+            'name' => 'required',
+            'email' => 'required|unique:users',
+            'password' => 'required|min:8',
+            'password_confirmation' => 'required'
+    }
 }
