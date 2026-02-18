@@ -1,0 +1,36 @@
+<< extends "base" >>
+<< block title >>Signup<< endblock >>
+<< block body >>
+
+<h1>Signup</h1>
+
+<form method="post" action="{{ /signup }}">
+<input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+<label>Name</label>
+<input type="text" name="name">
+<< if(!empty($errors['name'][0])) : >>
+    <p>{{ errors['name'][0] }}</p>
+<< endif; >>
+
+<label>Email</label>
+<input type="text" name="email">
+<< if(!empty($errors['email'][0])) : >>
+    <p>{{ errors['email'][0] }}</p>
+<< endif; >>
+
+<label>Password</label>
+<input type="password" name="password">
+<< if(!empty($errors['password'][0])) : >>
+    <p>{{ errors['password'][0] }}</p>
+<< endif; >>
+
+<label>Confirm Password</label>
+<input type="password" name="password_confirmation">
+<< if(!empty($errors['password_confirmation'][0])) : >>
+    <p>{{ errors['password_confirmation'][0] }}</p>
+<< endif; >>
+
+<button type="submit">Signup</button>
+
+<< endblock >>
