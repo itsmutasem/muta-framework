@@ -24,6 +24,7 @@ class InstallAuth extends Command
         $this->copyModel();
         $this->copyMiddleware();
         $this->copyView();
+        $this->copySignupView();
         $this->success('Auth package installed successfully');
     }
 
@@ -68,6 +69,14 @@ class InstallAuth extends Command
         $this->publish(
             BASE_PATH . '/src/Framework/Packages/Auth/stubs/view.stub',
             BASE_PATH . '/views/auth/login.muta.php'
+        );
+    }
+
+    public function copySignupView(): void
+    {
+        $this->publish(
+            BASE_PATH . '/src/Framework/Packages/Auth/stubs/signupView.stub',
+            BASE_PATH . '/views/auth/signup.muta.php'
         );
     }
 }
