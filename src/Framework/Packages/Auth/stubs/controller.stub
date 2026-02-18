@@ -99,6 +99,12 @@ class TestController extends Controller
         }
 
         $hashedPassword = md5($data['password']);
-        
+        $this->model->create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => $hashedPassword
+        ]);
+
+        return $this->redirect('auth/login');
     }
 }
