@@ -86,6 +86,11 @@ class TestController extends Controller
         if ($validator->fails()) {
             return $this->view('auth/signup', ['errors' => $validator->errors()]);
         }
-        
+
+        $data = $validator->validated();
+
+        if ($data['password'] !== $data['password_confirmation']) {
+            return $this->redirect('auth/signup', ['errors' => ['password' => 'Passwords do not match']]);
+        }
     }
 }
