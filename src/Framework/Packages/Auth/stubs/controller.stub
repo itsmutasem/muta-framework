@@ -97,5 +97,8 @@ class TestController extends Controller
         if ($existingUser) {
             return $this->redirect('auth/signup', ['errors' => ['email' => 'Email already exists']]);
         }
+
+        $hashedPassword = md5($data['password']);
+        
     }
 }
